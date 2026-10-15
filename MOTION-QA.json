@@ -1,0 +1,42 @@
+{
+  "passed": 30,
+  "tests": [
+    "Bundled Noto Sans font loads",
+    "Professional blue accent applied",
+    "Floating card position changes over time",
+    "Pause freezes floating animation",
+    "Pause updates aria-pressed",
+    "Resume restarts motion",
+    "Reverse columns respond to scroll",
+    "Columns move in opposing directions",
+    "Native wheel scroll is not reversed",
+    "Reduced motion disables card animation",
+    "Reduced motion removes reverse scrolling",
+    "Reduced motion label shown",
+    "No horizontal overflow at 320",
+    "Mobile reverse motion disabled at 320",
+    "No horizontal overflow at 390",
+    "Mobile reverse motion disabled at 390",
+    "No horizontal overflow at 768",
+    "Mobile reverse motion disabled at 768",
+    "No horizontal overflow at 1024",
+    "No horizontal overflow at 1440",
+    "Mobile menu opens",
+    "Escape closes mobile menu",
+    "FAQ expands",
+    "Route renders /services/ai-receptionist",
+    "Route renders /services/website-chatbot",
+    "Route renders /services/lead-follow-up",
+    "Route renders /resources/missed-call-follow-up",
+    "Preview form reports no data submitted",
+    "No external network requests",
+    "No browser errors"
+  ],
+  "errors": [],
+  "externalRequests": 0,
+  "limitations": [
+    "Local browser preview, not a hosted Next.js production build.",
+    "No real provider email or Notion submissions tested.",
+    "Figma frames are editable static designs, not an animated Figma prototype."
+  ]
+}

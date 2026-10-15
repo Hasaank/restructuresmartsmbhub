@@ -1,0 +1,40 @@
+{
+  "passed": 29,
+  "tests": [
+    "Products route renders",
+    "Four catalog cards",
+    "All checkout buttons safely disabled",
+    "No checkout provider links exposed",
+    "Prompts filter selects one product",
+    "Prompts filter has pressed state",
+    "Learning filter selects one product",
+    "Learning filter has pressed state",
+    "Automation filter selects one product",
+    "Automation filter has pressed state",
+    "Bundle filter selects one product",
+    "Bundle filter has pressed state",
+    "All filter restores four cards",
+    "Scope details expand",
+    "prompt-diary sample downloads as PDF",
+    "prompt-diary download has PDF signature",
+    "ai-foundations sample downloads as PDF",
+    "ai-foundations download has PDF signature",
+    "make-kit sample downloads as PDF",
+    "make-kit download has PDF signature",
+    "No horizontal overflow at 320",
+    "No horizontal overflow at 390",
+    "No horizontal overflow at 768",
+    "No horizontal overflow at 1024",
+    "No horizontal overflow at 1440",
+    "Homepage links to product catalog",
+    "Product FAQ expands",
+    "No browser errors",
+    "No external preview requests"
+  ],
+  "errors": [],
+  "externalRequests": 0,
+  "limitations": [
+    "Local rendering and browser preview, not a verified production Next.js build.",
+    "Paid checkout, tax, delivery, refunds and real Make executions are not tested or enabled."
+  ]
+}

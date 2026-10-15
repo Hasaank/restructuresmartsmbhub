@@ -1,0 +1,51 @@
+{
+  "modified": [
+    ".env.local.example",
+    "README.md",
+    "next.config.mjs",
+    "tailwind.config.mjs",
+    "app/ClientLayout.jsx",
+    "app/globals.css",
+    "app/layout.jsx",
+    "app/page.jsx",
+    "app/components/Footer.jsx",
+    "app/components/Navbar.jsx",
+    "app/contact/page.jsx",
+    "app/privacy/page.jsx",
+    "app/terms/page.jsx",
+    "app/api/contact/route.js"
+  ],
+  "added": [
+    "LAUNCH-AND-SEO.md",
+    "QA-RESULTS.json",
+    "app/robots.js",
+    "app/sitemap.js",
+    "app/marketing.css",
+    "public/brand-icon.svg",
+    "public/og-image.png",
+    "app/auth/layout.jsx",
+    "app/components/LeadFlow.jsx",
+    "app/components/AuditForm.jsx",
+    "app/dashboard/layout.jsx",
+    "app/lib/site.js",
+    "app/lib/contact-validation.js",
+    "app/onboarding/layout.jsx",
+    "app/resources/missed-call-follow-up/page.jsx",
+    "app/services/ai-receptionist/page.jsx",
+    "app/services/website-chatbot/page.jsx",
+    "app/services/lead-follow-up/page.jsx"
+  ],
+  "notDeployed": true,
+  "digitalStorefront": {
+    "added": [
+      "app/products/page.jsx",
+      "app/components/ProductShelf.jsx",
+      "app/lib/products.js",
+      "public/samples/",
+      "PLATFORM-START-HERE.md"
+    ],
+    "sitemapUrls": 9,
+    "checkoutEnabled": false,
+    "deployed": false
+  }
+}
