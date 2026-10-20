@@ -1,0 +1,27 @@
+{
+  "checks": [
+    {
+      "label": "desktop",
+      "state": "success",
+      "passed": true
+    },
+    {
+      "label": "desktop",
+      "state": "error",
+      "passed": true
+    },
+    {
+      "label": "mobile",
+      "state": "success",
+      "passed": true
+    },
+    {
+      "label": "mobile",
+      "state": "error",
+      "passed": true
+    }
+  ],
+  "mocked": true,
+  "externalMessagesSent": 0,
+  "requests": 4
+}

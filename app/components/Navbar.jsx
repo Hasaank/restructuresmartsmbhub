@@ -1,16 +1,78 @@
 "use client";
-import {useState,useEffect} from "react";
-import {getStoredAuthToken,clearStoredAuthSession} from "@/authservice/AuthService";
-export default function Navbar({openModal}) {
- const [open,setOpen]=useState(false); const [logged,setLogged]=useState(false);
- useEffect(()=>{const sync=()=>setLogged(Boolean(getStoredAuthToken()));sync();window.addEventListener('auth-state-changed',sync);window.addEventListener('storage',sync);return()=>{window.removeEventListener('auth-state-changed',sync);window.removeEventListener('storage',sync);};},[]);
- useEffect(()=>{if(!open)return;const esc=e=>{if(e.key==='Escape'){setOpen(false);document.getElementById('menu-toggle')?.focus();}};window.addEventListener('keydown',esc);return()=>window.removeEventListener('keydown',esc);},[open]);
- return <header className="hub-header"><nav className="hub-nav hub-container" aria-label="Main navigation">
- <a className="hub-brand" href="/" aria-label="SmartSMBHub home"><span className="hub-mark" aria-hidden="true">S</span>SmartSMB<span>Hub</span></a>
- <button id="menu-toggle" className="hub-menu-toggle" aria-expanded={open} aria-controls="hub-menu" onClick={()=>setOpen(!open)}>{open?'Close':'Menu'}</button>
- <div id="hub-menu" className={`hub-menu ${open?'is-open':''}`} onClick={e=>{if(e.target.closest('a'))setOpen(false);}}>
- <a href="/#features">AI services</a><a href="/products">Digital products</a><a href="/#pricing">Pricing</a><a href="/resources/missed-call-follow-up">Resources</a>
- {logged?<><a href="/dashboard">Dashboard</a><button className="hub-text-button" onClick={()=>{clearStoredAuthSession();setLogged(false);setOpen(false);window.dispatchEvent(new CustomEvent('auth-state-changed'));}}>Sign out</button></>:<button className="hub-text-button" onClick={()=>{setOpen(false);openModal('login');}}>Sign in</button>}
- <a className="hub-button hub-button-small" href="/contact">Get a free AI audit <span aria-hidden="true">↗</span></a>
- </div></nav></header>;
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { ArrowUpRight, Menu, X } from "lucide-react";
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => {
+    const key = (e) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        document.getElementById("menu-toggle")?.focus();
+      }
+    };
+    document.addEventListener("keydown", key);
+    return () => document.removeEventListener("keydown", key);
+  }, []);
+  if (
+    pathname.startsWith("/dashboard") ||
+    pathname.startsWith("/onboarding") ||
+    pathname.startsWith("/auth/")
+  )
+    return null;
+  const links = [
+    ["Website redesign", "/website-redesign"],
+    ["AI automations", "/ai-automations"],
+    ["Our work", "/work"],
+    ["Pricing", "/pricing"],
+  ];
+  return (
+    <header className="site-header">
+      <nav className="wrap nav" aria-label="Main navigation">
+        <Link href="/" className="brand" aria-label="Smart SMB Hub home">
+          <span className="brand-mark" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+            <i />
+          </span>
+          <span>
+            smart<span className="brand-heavy">SMB</span>hub
+            <span className="brand-dot">.</span>
+          </span>
+        </Link>
+        <button
+          className="menu-toggle"
+          id="menu-toggle"
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-controls="main-menu"
+          aria-label={open ? "Close navigation" : "Open navigation"}
+        >
+          {open ? <X /> : <Menu />}
+        </button>
+        <div className={`nav-links ${open ? "open" : ""}`} id="main-menu">
+          {links.map(([label, href]) => (
+            <Link
+              key={href}
+              href={href}
+              aria-current={pathname.startsWith(href) ? "page" : undefined}
+            >
+              {label}
+            </Link>
+          ))}
+          <Link
+            href="/contact"
+            className="button nav-cta"
+            onClick={() => setOpen(false)}
+          >
+            Let’s talk <ArrowUpRight size={17} />
+          </Link>
+        </div>
+      </nav>
+    </header>
+  );
 }

@@ -1,7 +1,20 @@
-import {pageMetadata,SITE_URL} from "../../lib/site";
-export const metadata=pageMetadata('Automated Lead Follow-Up for Small Businesses','Keep inquiries moving with SMS and email follow-up, CRM logging, owner alerts, and appointment reminders. Explore SmartSMBHub Pro at $197/month.','/services/lead-follow-up');
-export default function Page(){return <div className="hub-site"><article className="hub-container hub-article"><p className="hub-eyebrow">SMARTSMBHUB SOLUTIONS</p><h1>Keep a good inquiry from going quiet.</h1><p className="hub-lede">New inquiries can stall when the team is busy or the next step is unclear. SmartSMBHub connects follow-up with your lead-response process so customers know how to move forward.</p><section><h2>Make the first response useful</h2><p>A helpful response acknowledges the inquiry, offers a clear next step, and uses the context the customer provided. Avoid generic messages that ask people to repeat everything they already told you.</p></section>
-<section><h2>Use SMS and email responsibly</h2><p>Use the right channel and obtain the consent your messages require. Keep marketing opt-ins separate from a request for service, honor opt-outs, and agree message frequency before turning on a sequence.</p></section>
-<section><h2>Give your team the context</h2><p>CRM logging and owner alerts help your team see what was asked, what has already been sent, and who needs to take over. Supported connections and escalation rules are confirmed during setup.</p></section>
-<section><h2>Support booking and reminders</h2><p>A follow-up should make booking easier—not send someone into another dead end. Test booking links, calendar availability, rescheduling, and appointment reminders against your actual process.</p></section>
-<section><h2>Included in Pro</h2><p>Pro is $197 per month and includes the Basic call-answering features, website chatbot, lead follow-up, CRM logging, owner alerts, and reminders. Custom setups can cover more complex integrations or multi-location needs. Usage allowances and any extra charges must be confirmed before service.</p></section><div className="hub-article-cta"><h2>Find the right fit for your business.</h2><p>Start with a free AI audit of your calls, inquiries, follow-up, and booking process.</p><a className="hub-button" href="/contact">Request your free AI audit ↗</a></div><p>Explore <a href="/services/ai-receptionist">AI call answering</a>, <a href="/services/website-chatbot">website chat</a>, and <a href="/services/lead-follow-up">lead follow-up</a>, or <a href="/#pricing">compare the plans</a>.</p></article></div>;}
+import { services, pageMetadata } from "../../lib/site";
+import { ServiceDetail, ServiceSchema } from "../../components/SiteUI";
+const service = services.find((x) => x.slug === "lead-follow-up");
+export const metadata = pageMetadata(
+  `${service.name} for Small Businesses`,
+  service.desc,
+  "/services/lead-follow-up",
+);
+export default function Service() {
+  return (
+    <>
+      <ServiceSchema
+        name={service.name}
+        description={service.desc}
+        path="/services/lead-follow-up"
+      />
+      <ServiceDetail service={service} />
+    </>
+  );
+}

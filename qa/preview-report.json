@@ -1,0 +1,8 @@
+{
+  "offlineNavigation": "pass",
+  "offlineForm": "safely disabled",
+  "errors": [],
+  "extraBreakpointIssues": [],
+  "sitemapUrls": 18,
+  "robots": "User-Agent: *\nAllow: /\nDisallow: /api/\nDisallow: /dashboard\nDisallow: /onboarding\nDisallow: /auth/\n\nSitemap: https://www.smartsmbhub.com/sitemap.xml\n"
+}

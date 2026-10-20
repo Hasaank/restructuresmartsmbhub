@@ -1,0 +1,31 @@
+
+> smart-smb-hub@0.1.0 test
+> node --test tests/*.test.cjs
+
+✔ unconfigured delivery returns 503 rather than false success (32.788412ms)
+✔ rejects unexpected origin (1.34043ms)
+✔ rejects missing origin (1.156085ms)
+✔ rejects wrong content type (1.107484ms)
+✔ rejects malformed JSON (1.346258ms)
+✔ rejects missing name (1.197906ms)
+✔ rejects missing consent (1.322273ms)
+✔ rejects bad email (1.101231ms)
+✔ rejects header injection (2.520082ms)
+✔ rejects honeypot (1.386692ms)
+✔ rejects javascript website (1.180374ms)
+✔ rejects credentialed website (1.221633ms)
+✔ rejects long field (1.049242ms)
+✔ rejects wrong field type (0.9164ms)
+✔ limits body size (1.163123ms)
+✔ confirmed provider response permits success; payload preserves website interest (1.925577ms)
+✔ provider failure is not success (1.165395ms)
+✔ provider timeout/network failure is not success (1.142989ms)
+✔ rate limits repeated valid submissions (2.041013ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 134.796275

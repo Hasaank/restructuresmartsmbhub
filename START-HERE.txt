@@ -1,42 +1,16 @@
-SMARTSMBHUB — ALIGNED SOURCE FILES AND WINDOWS DEPLOYMENT HELPER
+SMARTSMBHUB — WEBSITE-FIRST REDESIGN
 
-This ZIP contains source files directly at its root. It is not itself deployable while zipped.
-No Vercel deployment has been made from this chat. Your authorization happens on your computer.
-The Windows helper has been reviewed structurally but could not be run in this Linux sandbox.
-The full Next.js build remains unverified until it runs successfully on your computer or Vercel.
+Open README.md first. It is the authoritative guide for this delivery.
 
-OPTION A — WINDOWS HELPER (direct Vercel deployment)
-1. Right-click the ZIP, choose Extract All, and open the extracted folder.
-2. Confirm package.json, app, public, and START-DEPLOY.cmd are visible together.
-3. Run START-DEPLOY.cmd. It requires Node.js/npm and internet access.
-4. Approve Vercel sign-in in your browser/device flow.
-5. Link the EXISTING restructuresmartsmbhub project under the correct team.
-6. Use ./ as the code directory. Fix Root Directory to default/root in Vercel if previously set differently.
-7. Review the Preview URL. Do not type PUBLISH until the preview and launch gates are reviewed.
-8. Type PUBLISH only if you want a production deployment now; otherwise press Enter to stop.
+1. Preview locally: npm ci, npm run build, npm start.
+2. Review the redesigned marketing website and its offers.
+3. Set Resend environment values in Vercel and verify actual email delivery.
+4. Review the policy drafts, pricing, business identity, and service scope.
+5. Commit to a review branch, inspect the Vercel Preview deployment, then promote only after approval.
 
-The helper stops on install or build errors and does not silently publish production.
-It does not configure secrets, forms, a database, billing, or Google Search Console.
-Set secrets only through Vercel or local environment files; never paste them into chat.
-CLI deployment does not synchronize your GitHub repository. Fix the repo as described below
-so future Git-triggered deployments do not try to redeploy the old ZIP-only commit.
+No code has been pushed to GitHub and no production deployment has been made by this delivery.
+The ZIP is the full Next.js project, not an HTML replacement for the app.
+The standalone HTML preview is visual/navigation-only and cannot send audit requests.
 
-OPTION B — GITHUB + VERCEL AUTO-DEPLOY (no local Node.js needed)
-1. Extract this ZIP.
-2. Open your GitHub repository. Choose Add file > Upload files.
-3. Drag ALL extracted files and folders into the upload area. Do not upload a ZIP.
-   Keep app/ and public/ as folders. Include package.json and the configuration files.
-   Do not upload generated node_modules/, .next/, .vercel/, or any real .env files.
-4. Commit the files. You may delete the old SmartSMBHub-website-upgrade.zip afterward.
-5. Confirm the repo's top-level file list contains app/, public/, and package.json.
-6. Vercel settings: Framework Next.js; Root Directory default/root; build npm run build;
-   Output Directory framework default (no public or out override).
-7. Let the connected Vercel project deploy the latest commit and inspect its Build Logs.
-
-If the project auto-deploys main to production, commit to a new branch first and review
-its Preview deployment before merging into main.
-
-FORM SETUP AND SEO
-Read LAUNCH-AND-SEO.md for Notion form setup, email provider variables, Google verification,
-sitemap submission, traffic strategy, and unresolved legal/account/backend launch gates.
-The ZIP does not contain real credentials. The .env.local.example file is a template only.
+The other pre-existing platform, storefront, and motion notes describe earlier versions.
+Use README.md and LAUNCH-AND-SEO.md for the new marketing website.
