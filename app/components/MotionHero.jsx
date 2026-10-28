@@ -1,16 +1,207 @@
 "use client";
-import {useEffect} from "react";
-export function startMotion(){
- const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');let scheduled=false;
- function update(){scheduled=false;const off=reduced.matches||document.body.classList.contains('motion-paused')||window.innerWidth<900;
- document.querySelectorAll('.mjourney').forEach(section=>{const r=section.getBoundingClientRect();const p=Math.max(0,Math.min(1,(window.innerHeight-r.top)/(window.innerHeight+r.height)));section.style.setProperty('--reverse',off?'0px':((p-.5)*160).toFixed(2)+'px');});
- document.querySelectorAll('.motion-toggle').forEach(b=>{b.disabled=reduced.matches;b.textContent=reduced.matches?'Reduced motion on':document.body.classList.contains('motion-paused')?'Resume motion':'Pause motion';b.setAttribute('aria-pressed',String(document.body.classList.contains('motion-paused')));});}
- function queue(){if(!scheduled){scheduled=true;requestAnimationFrame(update);}}
- function click(e){if(e.target.closest('.motion-toggle')){document.body.classList.toggle('motion-paused');update();}}
- function pointer(e){if(reduced.matches||document.body.classList.contains('motion-paused')||!window.matchMedia('(pointer:fine)').matches)return;const hero=document.querySelector('.mhero');if(hero){hero.style.setProperty('--mx',((e.clientX/window.innerWidth-.5)*28).toFixed(2)+'px');hero.style.setProperty('--my',((e.clientY/window.innerHeight-.5)*24).toFixed(2)+'px');}}
- window.addEventListener('scroll',queue,{passive:true});window.addEventListener('resize',queue);document.addEventListener('click',click);document.addEventListener('pointermove',pointer,{passive:true});reduced.addEventListener('change',queue);update();
- return()=>{window.removeEventListener('scroll',queue);window.removeEventListener('resize',queue);document.removeEventListener('click',click);document.removeEventListener('pointermove',pointer);reduced.removeEventListener('change',queue);document.body.classList.remove('motion-paused');};
+
+import { useEffect } from "react";
+
+export function startMotion() {
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let scheduled = false;
+
+  function update() {
+    scheduled = false;
+    const off =
+      reduced.matches ||
+      document.body.classList.contains("motion-paused") ||
+      window.innerWidth < 900;
+
+    document.querySelectorAll(".mjourney").forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      const progress = Math.max(
+        0,
+        Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height))
+      );
+      section.style.setProperty("--progress", progress.toFixed(3));
+      section.style.setProperty("--tint", off ? "0" : String(progress));
+    });
+
+    document.querySelectorAll(".motion-toggle").forEach((button) => {
+      button.disabled = reduced.matches;
+      button.textContent = reduced.matches
+        ? "Reduced motion on"
+        : document.body.classList.contains("motion-paused")
+          ? "Resume motion"
+          : "Pause motion";
+    });
+  }
+
+  function queue() {
+    if (!scheduled) {
+      scheduled = true;
+      requestAnimationFrame(update);
+    }
+  }
+
+  function click(event) {
+    if (event.target.closest(".motion-toggle")) {
+      document.body.classList.toggle("motion-paused");
+      update();
+    }
+  }
+
+  function pointer(event) {
+    if (
+      reduced.matches ||
+      document.body.classList.contains("motion-paused") ||
+      !window.matchMedia("(pointer:fine)").matches
+    ) {
+      return;
+    }
+
+    const hero = document.querySelector(".mhero");
+    if (hero) {
+      const rect = hero.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      hero.style.setProperty("--mx", `${x * 24}px`);
+      hero.style.setProperty("--my", `${y * 24}px`);
+    }
+  }
+
+  window.addEventListener("scroll", queue, { passive: true });
+  window.addEventListener("resize", queue);
+  document.addEventListener("click", click);
+  document.addEventListener("pointermove", pointer, { passive: true });
+
+  update();
+
+  return () => {
+    window.removeEventListener("scroll", queue);
+    window.removeEventListener("resize", queue);
+    document.removeEventListener("click", click);
+    document.removeEventListener("pointermove", pointer);
+  };
 }
-const Wave=()=> <div className="mwave" aria-hidden="true">{Array.from({length:28},(_,i)=><i key={i} style={{height:8+(i%5)*5,animationDelay:(i*.06)+'s'}}/>)}</div>;
-export default function MotionHero(){useEffect(startMotion,[]);return <section className="mhero"><div className="mambient" aria-hidden="true"/><div className="hub-container mhero-grid"><div className="mhero-copy"><p className="hub-eyebrow">AI LEAD RESPONSE / BUILT FOR YOUR BUSINESS</p><h1>Don’t miss<br/>your next<br/><em>customer.</em></h1><p className="hub-lede">AI call answering, website chat, and follow-up. A connected response, configured around your business.</p><div className="hub-actions"><a className="hub-button" href="/contact">Get your free AI audit ↗</a><a className="hub-secondary" href="#how">Explore the system ↓</a></div><p className="hub-micro">Start with an audit. Choose a plan when you are ready.</p></div><div className="mscene" aria-label="Illustrative lead-response workflows, not live customer activity"><div className="mcard-wrap mvoice"><article className="mcard"><div className="mcard-label"><span className="mdot"/> VOICE / EXAMPLE</div><h2>Every first hello matters.</h2><p>Missed and after-hours calls. Answers configured for your business.</p><Wave/><div className="mcard-foot"><span>AI receptionist</span><span>Basic + Pro ↗</span></div></article></div><div className="mcard-wrap mfollow"><article className="mcard"><div className="mcard-label">FOLLOW-UP / EXAMPLE</div><h2>Keep the conversation moving.</h2><p>Helpful SMS and email follow-up. Clear next steps.</p><div className="mmessage">Thanks for reaching out. How can we help?</div><div className="mcard-foot"><span>SMS + email</span><span>Pro ↗</span></div></article></div><div className="mcard-wrap mbooking"><article className="mcard"><div className="mcard-label">BOOKING / EXAMPLE</div><h2>Make the next step easy.</h2><p>Calendar booking with compatible connected tools.</p><div className="mslots" aria-hidden="true"><span>10:00</span><span>11:30</span><span>14:00</span></div></article></div><p className="mscene-note">Illustrative workflows. Not live customer activity.</p></div></div><button className="motion-toggle" type="button" aria-pressed="false">Pause motion</button></section>}
-export function MotionJourney(){return <section className="mjourney" id="how"><div className="hub-container mjourney-grid"><div className="mjourney-copy"><p className="hub-eyebrow">ONE CONNECTED RESPONSE</p><h2>Less chasing.<br/><em>More conversations.</em></h2><p>Your customer moves forward. Your team stays in the loop.</p><ol><li><strong>Find the gaps.</strong><span>Review calls, website inquiries, follow-up, and booking in your free audit.</span></li><li><strong>Build your response.</strong><span>Agree the scope. Connect compatible tools. Configure answers and handoffs.</span></li><li><strong>Test, then launch.</strong><span>Test the customer journey together before launch.</span></li></ol></div><div className="mreverse" aria-label="Example stages of a customer inquiry"><div className="mcolumn mcolumn-a"><article className="mstep"><span>01 / VOICE</span><b>Answer.</b><p>Give missed callers a useful next step.</p><div className="mstep-line"/></article><article className="mstep"><span>02 / WEBSITE</span><b>Capture.</b><p>Collect inquiries with helpful context.</p><div className="mstep-grid" aria-hidden="true"><i/><i/><i/></div></article></div><div className="mcolumn mcolumn-b"><article className="mstep"><span>03 / FOLLOW-UP</span><b>Reconnect.</b><p>Keep inquiries moving with Pro.</p><div className="mstep-bubble">A clear next step ↗</div></article><article className="mstep"><span>04 / CALENDAR</span><b>Book.</b><p>Make appointment scheduling easier.</p><div className="mstep-bubble">Calendar connection</div></article></div></div></div></section>}
+
+const Wave = () => (
+  <div className="mwave" aria-hidden="true">
+    {Array.from({ length: 28 }, (_, index) => (
+      <i
+        key={index}
+        style={{
+          height: 8 + (index % 5) * 5,
+          animationDelay: `${index * 0.06}s`,
+        }}
+      />
+    ))}
+  </div>
+);
+
+export default function MotionHero() {
+  useEffect(() => startMotion(), []);
+
+  return (
+    <section className="mhero">
+      <div className="mambient" aria-hidden="true" />
+      <div className="hub-container mhero-grid">
+        <div className="mhero-copy">
+          <p className="hub-eyebrow">SMARTSMBHUB FOR SMALL BUSINESS GROWTH</p>
+          <h1>Never miss another customer inquiry.</h1>
+          <p className="hub-lede">
+            Answer calls, chat, and follow-up with AI that feels human so your team can stay focused on real sales and service work.
+          </p>
+
+          <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+            <a className="inline-flex items-center justify-center rounded-full bg-[#8ab4ff] px-6 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-[#8ab4ff]/20 transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#8ab4ff]/30" href="/contact">
+              Book a free AI audit
+            </a>
+            <a className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-slate-100 transition hover:border-white/30 hover:bg-white/10" href="/#features">
+              See how it works
+            </a>
+          </div>
+
+          <div className="mt-8 grid grid-cols-3 gap-3 text-left">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-3 backdrop-blur-sm">
+              <div className="text-lg font-bold text-white">24/7</div>
+              <div className="mt-1 text-xs uppercase tracking-[0.12em] text-slate-300">coverage</div>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-3 backdrop-blur-sm">
+              <div className="text-lg font-bold text-white">Fast</div>
+              <div className="mt-1 text-xs uppercase tracking-[0.12em] text-slate-300">lead response</div>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-3 backdrop-blur-sm">
+              <div className="text-lg font-bold text-white">Simple</div>
+              <div className="mt-1 text-xs uppercase tracking-[0.12em] text-slate-300">setup</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mscene" aria-label="SmartSMBHub workflow preview">
+          <div className="mcard-wrap">
+            <article className="mcard">
+              <div className="mcard-top">
+                <span className="hub-tag">Live workflow</span>
+                <button className="motion-toggle" type="button">
+                  Pause motion
+                </button>
+              </div>
+              <div className="mcard-body">
+                <div className="mstack mstack-primary">
+                  <span>Inbound call</span>
+                  <strong>New lead</strong>
+                </div>
+                <div className="mstack mstack-secondary">
+                  <span>AI answers</span>
+                  <strong>Qualifies + routes</strong>
+                </div>
+                <div className="mstack mstack-highlight">
+                  <span>Follow-up</span>
+                  <strong>Text + email + CRM</strong>
+                </div>
+              </div>
+            </article>
+          </div>
+          <Wave />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function MotionJourney() {
+  return (
+    <section className="mjourney" id="how">
+      <div className="hub-container mjourney-grid">
+        <div className="mjourney-copy">
+          <p className="hub-eyebrow">ONE CONNECTED CUSTOMER JOURNEY</p>
+          <h2>More clarity. Faster action. Fewer missed opportunities.</h2>
+          <p>
+            SmartSMBHub connects the parts of customer intake most teams lose track of: the first phone call, the website inquiry, and the follow-up that turns interest into a booked job.
+          </p>
+        </div>
+
+        <div className="mjourney-steps">
+          <div className="mstep">
+            <b>01</b>
+            <div>
+              <h3>Capture the inquiry</h3>
+              <p>Answer after-hours and missed calls with a clear, business-specific experience.</p>
+            </div>
+          </div>
+          <div className="mstep">
+            <b>02</b>
+            <div>
+              <h3>Guide the next step</h3>
+              <p>Offer a booking option, answer FAQs, or route the conversation to the right team.</p>
+            </div>
+          </div>
+          <div className="mstep">
+            <b>03</b>
+            <div>
+              <h3>Follow up automatically</h3>
+              <p>Keep momentum alive with text, email, and CRM logging without manual chasing.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
